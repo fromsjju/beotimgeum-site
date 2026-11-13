@@ -1,0 +1,6 @@
+이 폴더의 글꼴은 페이지에 쓰인 글자만 남긴 부분 글꼴입니다.
+모두 SIL Open Font License 1.1을 따릅니다: https://openfontlicense.org
+
+- IBM Plex Sans KR — Copyright © 2017 IBM Corp.
+- Gaegu — Copyright 2017 The Gaegu Project Authors (JIKJI SOFT)
+- Manrope — Copyright 2018 The Manrope Project Authors (Mikhail Sharanda)

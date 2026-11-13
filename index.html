@@ -2,38 +2,274 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>버팀금 고객 지원</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>버팀금 · 지원과 개인정보처리방침</title>
+<meta name="description" content="버팀금 고객 지원, 자주 묻는 질문, 개인정보처리방침">
+<link rel="icon" href="img/beoti-idle.png">
 <style>
-  :root { --bg:#ffffff; --surface:#f7f4ec; --line:#ece5d5; --text:#34332f; --sub:#6e695f; --accent:#ffd95a; }
-  @media (prefers-color-scheme: dark) { :root { --bg:#1e1d1a; --surface:#2b2a26; --line:#3a3833; --text:#faf6ec; --sub:#b3aea2; } }
-  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.7 -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
-  main { max-width:680px; margin:0 auto; padding:40px 24px 64px; }
-  h1 { font-size:28px; line-height:1.3; margin:0 0 8px; }
-  h2 { font-size:18px; margin:36px 0 8px; }
-  p, li { color:var(--text); }
-  .sub { color:var(--sub); font-size:14px; }
-  .box { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px 20px; margin:24px 0; }
-  table { width:100%; border-collapse:collapse; font-size:15px; }
-  th, td { text-align:left; padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
-  th { color:var(--sub); font-weight:500; }
-  a { color:inherit; text-decoration-color:var(--accent); text-decoration-thickness:2px; }
+  @font-face { font-family: "Plex"; font-weight: 400; src: url(fonts/plex-400.woff) format("woff"); font-display: swap; }
+  @font-face { font-family: "Plex"; font-weight: 700; src: url(fonts/plex-700.woff) format("woff"); font-display: swap; }
+  @font-face { font-family: "Gaegu"; font-weight: 700; src: url(fonts/gaegu-700.woff) format("woff"); font-display: swap; }
+  @font-face { font-family: "Manrope"; font-weight: 800; src: url(fonts/manrope-800.woff) format("woff"); font-display: swap; }
+
+  :root {
+    --bg: #ffffff; --surface: #f7f4ec; --line: #ece5d5; --text: #34332f; --sub: #6e695f;
+    --primary: #ffd95a; --accent-text: #8a6200;
+    --character: #fff1bf; --on-character: #34332f; --on-character-sub: #6b6556; --bubble: #ffffff; --ink: #34332f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1e1d1a; --surface: #2b2a26; --line: #3a3833; --text: #faf6ec; --sub: #b3aea2; --primary: #ffe99a; --accent-text: #ffe99a; }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.7 "Plex", -apple-system, "Apple SD Gothic Neo", sans-serif; -webkit-font-smoothing: antialiased; word-break: keep-all; }
+  a { color: inherit; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  .num { font-family: "Manrope", "Plex", sans-serif; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .hand { font-family: "Gaegu", "Plex", cursive; font-weight: 700; }
+
+  /* 상단 */
+  header { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  header .wrap { height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px; text-decoration: none; }
+  .brand img { width: 32px; height: 32px; }
+  nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  nav a { padding: 6px 12px; border-radius: 999px; font-size: 14px; color: var(--sub); text-decoration: none; white-space: nowrap; transition: background-color .15s ease, color .15s ease; }
+  nav a:hover { background: var(--surface); color: var(--text); }
+
+  section { padding: 24px 0; }
+  h2 { font-size: 24px; line-height: 1.35; margin: 0 0 6px; font-weight: 700; }
+  .lead { color: var(--sub); margin: 0 0 20px; }
+
+  /* 대표 카드: 앱 홈의 금액 카드와 같은 모양 */
+  .hero { margin-top: 24px; position: relative; overflow: hidden; border-radius: 28px; background: var(--character); color: var(--on-character); padding: 28px 24px 0; min-height: 360px; }
+  .hero h1 { font-size: 34px; line-height: 1.25; margin: 0; font-weight: 700; }
+  .hero p { color: var(--on-character-sub); margin: 8px 0 0; max-width: 300px; }
+  .counter { margin-top: 20px; }
+  .counter small { display: block; color: var(--on-character-sub); font-size: 14px; }
+  .counter .num { font-size: 34px; line-height: 1.2; color: var(--on-character); }
+  .counter .num span { font-size: 18px; color: var(--on-character-sub); }
+  .hero .bubble { position: absolute; left: 24px; bottom: 28px; white-space: nowrap; background: var(--bubble); color: var(--ink); border-radius: 18px 18px 4px 18px; padding: 8px 14px; font-size: 19px; line-height: 1.3; }
+  .hero .beoti { position: absolute; right: 4px; bottom: 0; width: 200px; height: 200px; }
+  @media (min-width: 560px) { .hero { padding: 40px 36px 0; min-height: 340px; } .hero .beoti { width: 260px; height: 260px; right: 16px; } .hero .bubble { left: 36px; } }
+
+  .promise { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .promise span { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 999px; border: 1.5px solid var(--line); font-size: 14px; }
+  .promise span::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+
+  /* 기능 카드 */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .card { background: var(--surface); border-radius: 24px; padding: 20px; }
+  .feature { display: flex; flex-direction: column; justify-content: space-between; min-height: 180px; position: relative; overflow: hidden; }
+  .feature h3 { margin: 0; font-size: 17px; line-height: 1.4; }
+  .feature p { margin: 6px 0 0; font-size: 14px; color: var(--sub); line-height: 1.6; }
+  .feature img { width: 72px; height: 72px; align-self: flex-end; margin: 8px -6px -10px 0; }
+  .feature.wide { grid-column: 1 / -1; flex-direction: row; align-items: center; min-height: 0; background: var(--character); color: var(--on-character); }
+  .feature.wide p { color: var(--on-character-sub); }
+  .feature.wide img { width: 96px; height: 96px; margin: -8px -4px -20px 8px; }
+  @media (max-width: 420px) { .grid { grid-template-columns: 1fr; } .feature { min-height: 0; flex-direction: row; align-items: center; } .feature img { margin: -6px -6px -16px 8px; } }
+
+  /* 자주 묻는 질문 */
+  .list { border: 1.5px solid var(--line); border-radius: 24px; overflow: hidden; }
+  details { border-bottom: 1px solid var(--line); }
+  details:last-child { border-bottom: 0; }
+  summary { list-style: none; cursor: pointer; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; font-size: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: ""; flex: none; width: 8px; height: 8px; border-right: 2px solid var(--sub); border-bottom: 2px solid var(--sub); transform: rotate(45deg) translate(-2px, -2px); transition: transform .2s ease; }
+  details[open] summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+  details p { margin: 0; padding: 0 20px 18px; color: var(--sub); font-size: 15px; }
+  summary:focus-visible, a:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; border-radius: 8px; }
+
+  /* 개인정보처리방침 */
+  .summary-card { display: flex; gap: 14px; align-items: center; background: var(--character); color: var(--on-character); border-radius: 24px; padding: 18px 20px; margin-bottom: 12px; }
+  .summary-card img { width: 64px; height: 64px; flex: none; }
+  .summary-card strong { display: block; font-size: 17px; }
+  .summary-card span { color: var(--on-character-sub); font-size: 15px; }
+  .policy { background: var(--surface); border-radius: 24px; padding: 8px 20px; }
+  .policy article { padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .policy article:last-child { border-bottom: 0; }
+  .policy h3 { margin: 0 0 4px; font-size: 16px; display: flex; gap: 10px; align-items: baseline; }
+  .policy h3 .num { font-size: 14px; color: var(--accent-text); }
+  .policy p { margin: 0; font-size: 15px; color: var(--sub); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--sub); font-weight: 400; }
+  tr:last-child td { border-bottom: 0; }
+
+  /* 문의 */
+  .contact { display: flex; align-items: center; gap: 16px; border: 1.5px solid var(--line); border-radius: 24px; padding: 20px; }
+  .contact img { width: 80px; height: 80px; flex: none; }
+  .contact p { margin: 0 0 12px; color: var(--sub); font-size: 15px; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; height: 48px; padding: 0 22px; border-radius: 999px; background: var(--primary); color: #34332f; font-weight: 700; text-decoration: none; transition: transform .1s ease; }
+  .btn:active { transform: scale(.98); }
+  .btn svg { width: 16px; height: 16px; }
+  .mail { display: block; margin-top: 8px; font-size: 14px; color: var(--sub); }
+
+  footer { padding: 32px 0 48px; color: var(--sub); font-size: 13px; text-align: center; }
+  footer .hand { font-size: 18px; color: var(--text); display: block; margin-bottom: 4px; }
 </style>
 </head>
 <body>
-<main>
-  <h1>버팀금</h1>
-  <p class="sub">버틴 만큼 쌓인다</p>
-  <p>버팀금은 직장인이 지금까지 쌓은 퇴직금과 이번 달 월급을 초 단위로 보여 주고, 퇴직금을 깨지 않고 굴리는 방법을 쉽게 알려 주는 앱이에요.</p>
-  <div class="box">
-    <strong>문의</strong><br>
-    사용 중 궁금한 점이나 오류는 이메일로 알려 주세요.<br>
-    <a href="mailto:fromsjju@gmail.com">fromsjju@gmail.com</a>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/beoti-idle.png" alt="">버팀금</a>
+    <nav aria-label="바로가기">
+      <a href="#features">기능</a>
+      <a href="#faq">자주 묻는 질문</a>
+      <a href="#privacy">개인정보</a>
+      <a href="#support">문의</a>
+    </nav>
   </div>
-  <h2>자주 묻는 질문</h2>
-  <p><strong>입력한 월급 정보는 어디에 저장되나요?</strong><br>내 휴대폰 안에만 저장돼요. 서버로 보내지 않아요.</p>
-  <p><strong>계산 결과를 그대로 믿어도 되나요?</strong><br>정보 제공용 어림값이에요. 실제 퇴직금과 세금은 회사와 금융사 계산을 확인해 주세요. 버팀금은 특정 금융상품을 추천하지 않아요.</p>
-  <p><a href="privacy.html">개인정보처리방침</a></p>
+</header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <h1>버틴 만큼<br>쌓인다</h1>
+    <p>회사에 다니는 동안 쌓이는 퇴직금과 월급을 1초 단위로 보여 주는 앱이에요.</p>
+    <div class="counter" aria-live="off">
+      <small>이 페이지를 본 <b id="sec">0</b>초 동안 쌓인 퇴직금</small>
+      <div class="num">+<b id="amt">0.000</b> <span>원</span></div>
+    </div>
+    <div class="bubble hand">읽는 동안에도 쌓이는 중</div>
+    <img class="beoti" src="img/beoti-working.png" alt="노트북으로 일하는 버티">
+  </div>
+  <div class="promise" aria-label="버팀금의 약속">
+    <span>회원가입 없음</span><span>서버 전송 없음</span><span>광고 없음</span><span>분석 도구 없음</span>
+  </div>
+
+  <section id="features">
+    <h2>버팀금이 하는 일</h2>
+    <p class="lead">월급과 입사일만 넣으면 바로 시작해요.</p>
+    <div class="grid">
+      <div class="card feature">
+        <div><h3>실시간 퇴직금</h3><p>세전, 일시금 세후, IRP 연금 세후 금액이 1초마다 늘어나요.</p></div>
+        <img src="img/beoti-yes.png" alt="">
+      </div>
+      <div class="card feature">
+        <div><h3>받는 방법 비교</h3><p>지금, 5년 뒤, 10년 뒤 일시금과 IRP 세금 차이를 치킨으로 보여 줘요.</p></div>
+        <img src="img/beoti-balance-up.png" alt="">
+      </div>
+      <div class="card feature">
+        <div><h3>깨지 말고 굴리기</h3><p>퇴직금을 지키는 5단계를 그림 카드로 쉽게 알려 줘요.</p></div>
+        <img src="img/beoti-protect-money.png" alt="">
+      </div>
+      <div class="card feature">
+        <div><h3>거치 모드 · 위젯</h3><p>충전 중 세워 두는 화면, 홈·잠금화면 위젯, 퇴근 타이머까지.</p></div>
+        <img src="img/beoti-off-work.png" alt="">
+      </div>
+      <div class="card feature wide">
+        <div><h3>버티의 편지</h3><p>오늘 상황에 맞춰 버티가 손글씨 편지를 써 줘요. 이미지로 저장하거나 친구에게 보낼 수 있어요.</p></div>
+        <img src="img/beoti-idle.png" alt="">
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>자주 묻는 질문</h2>
+    <p class="lead">궁금한 점을 눌러 보세요.</p>
+    <div class="list">
+      <details>
+        <summary>입력한 월급 정보는 어디에 저장되나요?</summary>
+        <p>내 휴대폰 안에만 저장돼요. 버팀금에는 서버가 없어서 개발자도 볼 수 없어요.</p>
+      </details>
+      <details>
+        <summary>계산 결과를 그대로 믿어도 되나요?</summary>
+        <p>정보 제공용 어림값이에요. 상여금과 연차수당은 빠져 있어서 실제 금액과 다를 수 있어요. 실제 퇴직금과 세금은 회사와 금융사 계산을 확인해 주세요.</p>
+      </details>
+      <details>
+        <summary>금융상품을 추천하나요?</summary>
+        <p>아니요. 버팀금은 특정 금융상품을 추천하거나 판매하지 않아요. 법에 정해진 제도를 쉽게 설명할 뿐이에요.</p>
+      </details>
+      <details>
+        <summary>위젯 금액이 바로바로 안 바뀌어요.</summary>
+        <p>휴대폰 운영체제가 위젯 갱신 횟수를 제한해서 금액은 약 15분마다 바뀌어요. 퇴근까지 남은 시간은 실시간으로 줄어들어요.</p>
+      </details>
+      <details>
+        <summary>정보를 처음부터 다시 넣고 싶어요.</summary>
+        <p>앱의 설정에서 "내 정보 처음부터 다시 입력하기"를 누르면 돼요. 앱을 지우면 저장된 정보도 모두 지워져요.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <h2>개인정보처리방침</h2>
+    <p class="lead">시행일 2026년 11월 13일</p>
+    <div class="summary-card">
+      <img src="img/beoti-protect-money.png" alt="">
+      <div><strong>개인정보를 수집하지 않아요</strong><span>입력한 정보는 내 휴대폰 안에만 있고, 개발자를 포함해 누구에게도 전송되지 않아요.</span></div>
+    </div>
+    <div class="policy">
+      <article>
+        <h3><span class="num">01</span>앱에 입력하는 정보</h3>
+        <table>
+          <tr><th>정보</th><th>쓰는 곳</th></tr>
+          <tr><td>월급, 입사일, 급여일</td><td>퇴직금·월급 계산</td></tr>
+          <tr><td>출퇴근 시간</td><td>근무 진행률, 위젯, 잠금화면 표시</td></tr>
+          <tr><td>테마, 표시 통화 설정</td><td>화면 표시</td></tr>
+        </table>
+        <p style="margin-top:8px">모두 휴대폰 안 앱 전용 저장소에만 저장해요. 회원가입, 로그인, 광고, 분석 도구, 결제 기능은 없어요.</p>
+      </article>
+      <article>
+        <h3><span class="num">02</span>위젯과 잠금화면</h3>
+        <p>홈 화면 위젯과 iPhone 잠금화면 실시간 현황은 같은 휴대폰 안에서 앱과 위젯이 함께 쓰는 저장 공간으로 계산 결과를 나눠 써요. 이 정보도 휴대폰 밖으로 나가지 않아요.</p>
+      </article>
+      <article>
+        <h3><span class="num">03</span>환율 정보 받기</h3>
+        <p>원화가 아닌 통화로 볼 때만 <a href="https://frankfurter.dev">Frankfurter</a>(유럽중앙은행 기준 환율을 주는 공개 서비스)에서 환율을 받아요. 환율 요청만 보내고 월급이나 날짜는 보내지 않아요. 인터넷 통신 특성상 휴대폰의 IP 주소가 해당 서비스에 전달될 수 있어요.</p>
+      </article>
+      <article>
+        <h3><span class="num">04</span>이미지 공유</h3>
+        <p>버티의 편지를 공유하면 휴대폰의 공유 창이 열려요. 어디로 보낼지는 직접 고르며, 버팀금은 그 이미지를 따로 보관하거나 전송하지 않아요.</p>
+      </article>
+      <article>
+        <h3><span class="num">05</span>정보 삭제</h3>
+        <p>앱을 지우면 휴대폰에 저장된 모든 정보가 함께 지워져요. 설정의 "내 정보 처음부터 다시 입력하기"로 입력값을 새로 바꿀 수도 있어요.</p>
+      </article>
+      <article>
+        <h3><span class="num">06</span>어린이의 개인정보</h3>
+        <p>누구의 개인정보도 수집하지 않으므로 만 14세 미만 아동의 개인정보도 수집하지 않아요.</p>
+      </article>
+      <article>
+        <h3><span class="num">07</span>방침이 바뀔 때</h3>
+        <p>방침이 바뀌면 이 페이지에 바뀐 내용과 시행일을 먼저 알려 드려요.</p>
+      </article>
+      <article>
+        <h3><span class="num">08</span>문의</h3>
+        <p>개인정보 관련 문의는 아래 문의처로 보내 주세요.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="support">
+    <h2>문의</h2>
+    <p class="lead">사용 중 궁금한 점이나 오류를 알려 주세요.</p>
+    <div class="contact">
+      <img src="img/beoti-yes.png" alt="">
+      <div>
+        <p>보통 2~3일 안에 답장해요. 오류라면 휴대폰 기종과 어떤 화면이었는지 함께 적어 주시면 빨리 고칠 수 있어요.</p>
+        <a class="btn" href="mailto:fromsjju@gmail.com?subject=%5B%EB%B2%84%ED%8C%80%EA%B8%88%5D%20%EB%AC%B8%EC%9D%98">이메일 보내기
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></a>
+        <span class="mail">fromsjju@gmail.com</span>
+      </div>
+    </div>
+  </section>
 </main>
+
+<footer>
+  <span class="hand">오늘도 같이 버텨요</span>
+  버팀금 · 버틴 만큼 쌓인다
+</footer>
+
+<script>
+  // 2026년 최저임금(월 2,156,880원) 기준 퇴직금이 1초에 쌓이는 금액 (앱 환영 화면과 같은 계산)
+  var perSec = 2156880 * 3 / 92 * 30 / 365 / 86400;
+  var start = Date.now(), amt = document.getElementById('amt'), sec = document.getElementById('sec');
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  setInterval(function () {
+    var s = (Date.now() - start) / 1000;
+    sec.textContent = Math.floor(s);
+    amt.textContent = (s * perSec).toFixed(3);
+  }, still ? 1000 : 100);
+</script>
 </body>
 </html>
